@@ -11,3 +11,8 @@ Options FollowSymLinks
 <IfModule !mod_rewrite.c>
     ErrorDocument 404 /index.php
 </IfModule>
+
+# Apache config
+<FilesMatch ".(eot|ttf|otf|woff)">
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch>

@@ -10,6 +10,7 @@ class Cities extends REST_Controller
     {
         parent::__construct();
         $this->load->model('cities_model');
+        $this->output->set_header("Access-Control-Allow-Origin: *");
     }
 
     public function index_get()
@@ -17,7 +18,7 @@ class Cities extends REST_Controller
         $cities = $this->cities_model->get();
 
         if (!is_null($cities)) {
-            $this->response(array('response' => $cities), 200);
+            $this->response(array('results' => $cities), 200);
         } else {
             $this->response(array('error' => 'No hay ciudades en la base de datos...'), 404);
         }
@@ -46,7 +47,7 @@ class Cities extends REST_Controller
         $id = $this->cities_model->save($this->post('city'));
 
         if (!is_null($id)) {
-            $this->response(array('response' => $id), 200);
+            $this->response(array('results' => $id), 200);
         } else {
             $this->response(array('error', 'Algo se ha roto en el servidor...'), 400);
         }
@@ -61,7 +62,7 @@ class Cities extends REST_Controller
         $update = $this->cities_model->update($this->put('city'));
 
         if (!is_null($update)) {
-            $this->response(array('response' => 'Ciudad actualizada!'), 200);
+            $this->response(array('results' => 'Ciudad actualizada!'), 200);
         } else {
             $this->response(array('error', 'Algo se ha roto en el servidor...'), 400);
         }
@@ -76,7 +77,7 @@ class Cities extends REST_Controller
         $delete = $this->cities_model->delete($id);
 
         if (!is_null($delete)) {
-            $this->response(array('response' => 'Ciudad eliminada!'), 200);
+            $this->response(array('results' => 'Ciudad eliminada!'), 200);
         } else {
             $this->response(array('error', 'Algo se ha roto en el servidor...'), 400);
         }
